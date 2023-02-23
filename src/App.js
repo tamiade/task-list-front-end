@@ -30,13 +30,21 @@ const App = () => {
 
   const toggleCompleteTask = (taskId) => {
     const tasks = [];
+    let taskStatus = 'mark_complete';
     for (let task of taskData) {
       if (task.id === taskId) {
         task.isComplete = !task.isComplete;
+        taskStatus = task.isComplete ? 'mark_complete' : 'mark_incomplete';
       }
       tasks.push(task);
     }
     setTaskData(tasks);
+
+    axios.patch(`https://task-list-api-c17.herokuapp.com/tasks/${taskId}/${taskStatus}`)
+    .catch((error) => {
+      console.log('Error: Cannot patch task!');
+      console.log(error.response.data);
+    });
   };
 
   const deleteTask = (taskId) => {
