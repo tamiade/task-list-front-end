@@ -9,9 +9,7 @@ const TaskList = ({ tasks, onUpdateTasks, onDeleteTask }) => {
       return (
         <Task
           key={task.id}
-          id={task.id}
-          title={task.title}
-          isComplete={task.isComplete}
+          task={task}
           onComplete={onUpdateTasks}
           onDelete={onDeleteTask}
         />
@@ -23,13 +21,7 @@ const TaskList = ({ tasks, onUpdateTasks, onDeleteTask }) => {
 };
 
 TaskList.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      isComplete: PropTypes.bool.isRequired,
-    })
-  ).isRequired,
+  tasks: PropTypes.array.isRequired,
   onUpdateTasks: PropTypes.func.isRequired,
   onDeleteTask: PropTypes.func.isRequired
 };
