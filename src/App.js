@@ -8,7 +8,7 @@ import NewTaskForm from './components/NewTaskForm.js';
 const App = () => {
   const [taskData, setTaskData] = useState([]);
 
-  useEffect(() => {
+  const fetchAllTasks = () => {
     axios
       .get('https://task-list-api-c17.herokuapp.com/tasks')
       .then((response) => {
@@ -27,15 +27,26 @@ const App = () => {
           error.response.data
         );
       });
-  }, []);
+  };
+
+  useEffect(fetchAllTasks, []);
 
   const addNewTask = (newTask) => {
-    const newTaskList = [...taskData];
-    newTaskList.push({
-      title: newTask.title,
-      description: newTask.description
+    axios.post('https://task-list-api-c17.herokuapp.com/tasks', newTask)
+    .then((response) => {
+      alert('Added new task!');
+      fetchAllTasks(); // One handling option: This helper function will make a .get() call to fetch all tasks and update the state variable to display them
+      // const newTasks = [...taskData];
+      // newTasks.push({
+      //   ...newTask,
+      //   id: response.data.id,
+      // });
+      // setTaskData(newTasks); // Another handling option: This method does not require a .get() request; we are pushing the task data to the tasks list and using the setter to trigger a rerender
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      alert('Could not add new task!');
     });
-    setTaskData(newTaskList);
   };
 
   const toggleCompleteTask = (taskId) => {
