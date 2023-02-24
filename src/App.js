@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TaskList from './components/TaskList.js';
 import './App.css';
+import NewTaskForm from './components/NewTaskForm.js';
 
 
 const App = () => {
@@ -68,6 +69,7 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
+        <NewTaskForm />
         <div>{<TaskList tasks={taskData} onUpdateTasks={toggleCompleteTask} onDeleteTask={deleteTask}/>}</div>
       </main>
     </div>
