@@ -55,6 +55,11 @@ const App = () => {
       }
     }
     setTaskData(tasks);
+    axios.delete(`https://task-list-api-c17.herokuapp.com/tasks/${taskId}`)
+    .catch((error) => {
+      console.log('Error: Cannot delete task!');
+      console.log(error.response.data);
+    });
   };
 
   return (
