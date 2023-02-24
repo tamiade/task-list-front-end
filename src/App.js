@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TaskList from './components/TaskList.js';
 import './App.css';
+import TaskList from './components/TaskList.js';
 import NewTaskForm from './components/NewTaskForm.js';
 
 
@@ -28,6 +28,15 @@ const App = () => {
         );
       });
   }, []);
+
+  const addNewTask = (newTask) => {
+    const newTaskList = [...taskData];
+    newTaskList.push({
+      title: newTask.title,
+      description: newTask.description
+    });
+    setTaskData(newTaskList);
+  };
 
   const toggleCompleteTask = (taskId) => {
     const tasks = [];
@@ -69,7 +78,7 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <NewTaskForm />
+        <NewTaskForm onAddTask={addNewTask} />
         <div>{<TaskList tasks={taskData} onUpdateTasks={toggleCompleteTask} onDeleteTask={deleteTask}/>}</div>
       </main>
     </div>
